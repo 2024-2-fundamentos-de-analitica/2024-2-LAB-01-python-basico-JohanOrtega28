@@ -7,6 +7,29 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_06():
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        lineas = f.readlines()
+        
+    valores_por_clave = {}
+    for linea in lineas:
+        columnas = linea.strip().split("\t")
+        diccionario_codificado = columnas[4]
+        pares = diccionario_codificado.split(",")
+        
+        for par in pares:
+            clave, valor = par.split(":")
+            valor = int(valor)
+            if clave not in valores_por_clave:
+                valores_por_clave[clave] = [valor, valor]
+            else:
+                if valor < valores_por_clave[clave][0]:
+                    valores_por_clave[clave][0] = valor
+                if valor > valores_por_clave[clave][1]:
+                    valores_por_clave[clave][1] = valor
+    resultado = sorted([(clave, min_val, max_val) for clave, (min_val, max_val) in valores_por_clave.items()],
+                       key=lambda x: x[0])
+    return resultado
     """
     La columna 5 codifica un diccionario donde cada cadena de tres letras
     corresponde a una clave y el valor despues del caracter `:` corresponde al

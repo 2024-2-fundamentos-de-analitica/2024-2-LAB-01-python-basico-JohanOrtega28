@@ -7,7 +7,23 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_07():
-    """
+
+     with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        lineas = f.readlines()
+
+     agrupacion = {}
+
+     for linea in lineas:
+        columnas = linea.strip().split("\t")
+        letra = columnas[0]
+        valor = int(columnas[1])
+        if valor not in agrupacion:
+            agrupacion[valor] = []
+        agrupacion[valor].append(letra)
+
+     resultado = sorted(agrupacion.items(), key=lambda x: x[0])
+     return resultado
+     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
     contiene un valor posible de la columna 2 y una lista con todas las letras
     asociadas (columna 1) a dicho valor de la columna 2.

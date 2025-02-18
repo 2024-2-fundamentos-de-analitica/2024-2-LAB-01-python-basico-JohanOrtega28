@@ -7,6 +7,27 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_08():
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as f:
+        lineas = f.readlines()
+
+    agrupacion = {}
+
+    for linea in lineas:
+        columnas = linea.strip().split("\t")
+        letra = columnas[0]
+        valor = int(columnas[1])
+        
+        if valor not in agrupacion:
+            agrupacion[valor] = set()
+        agrupacion[valor].add(letra)
+
+    resultado = []
+    for valor in sorted(agrupacion.keys()):
+        letras_ordenadas = sorted(list(agrupacion[valor]))
+        resultado.append((valor, letras_ordenadas))
+        
+    return resultado
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
     contiene  el valor de la segunda columna; la segunda parte de la tupla
